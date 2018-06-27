@@ -47,6 +47,7 @@ class GCEProvider(LibcloudProvider):
                  description=None,
                  distro_name=None,
                  early_exit=None,
+                 group=None,
                  history_log=None,
                  image_id=None,
                  inject=None,

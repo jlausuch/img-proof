@@ -46,6 +46,7 @@ class EC2Provider(LibcloudProvider):
                  description=None,
                  distro_name=None,
                  early_exit=None,
+                 group=None,
                  history_log=None,
                  image_id=None,
                  inject=None,
@@ -117,6 +118,10 @@ class EC2Provider(LibcloudProvider):
         self.access_key_id = (
             access_key_id or
             self._get_from_ec2_config('access_key_id')
+        )
+        self.group = (
+            group or
+            self._get_value(group, config_key='group')
         )
         self.secret_access_key = (
             secret_access_key or
@@ -259,6 +264,9 @@ class EC2Provider(LibcloudProvider):
             kwargs['ex_keyname'] = self.ssh_key_name
         else:
             kwargs['ex_userdata'] = self._get_user_data()
+
+        if self.group:
+            kwargs['ex_iamprofile'] = self.group
 
         if self.subnet_id:
             kwargs['ex_subnet'] = self._get_subnet(self.subnet_id)

@@ -116,6 +116,11 @@ def main(context, no_color):
     help='Terminate test suite on first failure.'
 )
 @click.option(
+    '--group',
+    type=click.STRING,
+    help='IAM Group to launch the instance into.'
+)
+@click.option(
     '-h',
     '--history-log',
     type=click.Path(exists=True),
@@ -236,6 +241,7 @@ def test(context,
          description,
          distro,
          early_exit,
+         group,
          history_log,
          image_id,
          inject,
@@ -270,6 +276,7 @@ def test(context,
             description,
             distro,
             early_exit,
+            group,
             history_log,
             image_id,
             inject,
